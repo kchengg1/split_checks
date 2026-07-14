@@ -2,7 +2,7 @@
 
 Split a dinner bill from a photo of the receipt — fully on-device, no cloud, no accounts. See [PLAN.md](PLAN.md) for the full project plan.
 
-**Status: Milestone 1** — the split-math core with its test suite, plus a working manual-entry app (items → people → assign → tip & tax → summary → share). Receipt scanning (Milestone 2) lands next and feeds the same item list.
+**Status: Milestone 2** — receipt scanning is in: the VisionKit document camera (or a photo import) feeds on-device Vision OCR into `ReceiptParser`, which itemizes the receipt and pre-fills tax. Parsed items land in the same editable list as manual entry, with low-confidence lines flagged and the printed subtotal used as a checksum ("items add up ✓"). Next up (Milestone 3 in PLAN.md numbering is already built; Milestone 4): history persistence and polish.
 
 ## Layout
 
@@ -48,3 +48,22 @@ Shared items split by per-person weights (weights 2:1 give a two-thirds/one-thir
 split); tax and tip are prorated proportionally to each person's item subtotal,
 or evenly, per the user's choice. Discounts are just negative line items and
 split with the same fairness as charges.
+
+## How scanning works
+
+Everything is on-device — no cloud, no accounts:
+
+1. **Capture**: VisionKit's document camera (the Notes.app scanner) auto-crops
+   and de-skews, or the user imports a photo.
+2. **OCR**: Vision's `VNRecognizeTextRequest` (accurate mode, language
+   correction off — it "fixes" prices) returns text with bounding boxes.
+3. **Parse**: `ReceiptParser` (in the core package, fully unit-tested) clusters
+   observations into visual rows by vertical midpoint — receipts are columnar,
+   so a row may be a name and a price observation — then classifies each row:
+   trailing-amount extraction (tax-code suffixes, parenthesized discounts,
+   comma decimals), explicit quantities ("2 x"), and keyword lines
+   (SUBTOTAL/TAX/TIP/TOTAL captured separately; payment lines like
+   VISA/CHANGE ignored).
+4. **Review**: parsed items are a draft, not gospel — low-confidence lines are
+   flagged, and the printed subtotal is compared against the item sum as a
+   checksum before anyone gets assigned anything.

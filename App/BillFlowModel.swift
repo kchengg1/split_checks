@@ -14,6 +14,11 @@ final class BillFlowModel {
     var people: [Person] = []
     var assignments: [Assignment] = []
 
+    /// Set when the bill came from a scan; used for the title and checksum.
+    var merchantName: String?
+    var scannedSubtotalCents: Int?
+    var scannedTotalCents: Int?
+
     var taxCents: Int = 0
     /// A quick-button percentage, or nil when the user typed a custom tip.
     var tipPercent: Int? = 20
@@ -49,6 +54,16 @@ final class BillFlowModel {
         items.append(LineItem(name: trimmed.isEmpty ? "Item \(items.count + 1)" : trimmed,
                               quantity: quantity,
                               priceCents: priceCents))
+    }
+
+    func updateItem(id: LineItem.ID, name: String, priceCents: Int, quantity: Int) {
+        guard let index = items.firstIndex(where: { $0.id == id }) else { return }
+        let trimmed = name.trimmingCharacters(in: .whitespaces)
+        items[index].name = trimmed.isEmpty ? items[index].name : trimmed
+        items[index].priceCents = priceCents
+        items[index].quantity = quantity
+        // The user confirmed this line, so it's no longer an OCR guess.
+        items[index].ocrConfidence = 1.0
     }
 
     func removeItems(at offsets: IndexSet) {
@@ -89,11 +104,35 @@ final class BillFlowModel {
         return people.filter { ids.contains($0.id) }
     }
 
+    /// Replaces the current bill with a scanned receipt. Assignments reset
+    /// because item identities changed.
+    func applyParsedReceipt(_ receipt: ParsedReceipt) {
+        items = receipt.items
+        assignments = []
+        merchantName = receipt.merchantName
+        scannedSubtotalCents = receipt.subtotalCents
+        scannedTotalCents = receipt.totalCents
+        if let tax = receipt.taxCents { taxCents = tax }
+        if let tip = receipt.tipCents, tip > 0 {
+            tipPercent = nil
+            customTipCents = tip
+        }
+    }
+
+    /// The printed subtotal vs. the sum of parsed items — the built-in
+    /// checksum for OCR quality. nil when there's nothing to check against.
+    var subtotalChecksumMatches: Bool? {
+        scannedSubtotalCents.map { $0 == subtotalCents }
+    }
+
     func startOver() {
         path = []
         items = []
         people = []
         assignments = []
+        merchantName = nil
+        scannedSubtotalCents = nil
+        scannedTotalCents = nil
         taxCents = 0
         tipPercent = 20
         customTipCents = 0
