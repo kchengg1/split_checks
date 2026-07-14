@@ -1,0 +1,31 @@
+# XcodeGen spec — run `xcodegen` in the repo root to produce SplitChecks.xcodeproj.
+# Install XcodeGen with `brew install xcodegen`.
+name: SplitChecks
+options:
+  bundleIdPrefix: com.splitchecks
+  deploymentTarget:
+    iOS: "17.0"
+  xcodeVersion: "15.0"
+
+packages:
+  SplitChecksCore:
+    path: SplitChecksCore
+
+targets:
+  SplitChecks:
+    type: application
+    platform: iOS
+    sources:
+      - App
+    dependencies:
+      - package: SplitChecksCore
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
+        PRODUCT_BUNDLE_IDENTIFIER: com.splitchecks.app
+        SWIFT_VERSION: "5.9"
+        TARGETED_DEVICE_FAMILY: "1"
+        CURRENT_PROJECT_VERSION: 1
+        MARKETING_VERSION: 0.1.0
