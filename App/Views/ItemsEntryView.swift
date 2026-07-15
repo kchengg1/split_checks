@@ -30,6 +30,11 @@ struct ItemsEntryView: View {
         }
         .navigationTitle(model.merchantName ?? "New Bill")
         .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                NavigationLink(value: BillStep.history) {
+                    Label("History", systemImage: "clock")
+                }
+            }
             ToolbarItemGroup(placement: .topBarTrailing) {
                 if DocumentScannerView.isSupported {
                     Button {
@@ -78,6 +83,7 @@ struct ItemsEntryView: View {
             case .assign: AssignView()
             case .tipTax: TipTaxView()
             case .summary: SummaryView()
+            case .history: HistoryView()
             }
         }
         .safeAreaInset(edge: .bottom) {

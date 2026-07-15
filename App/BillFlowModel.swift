@@ -1,5 +1,6 @@
 import Foundation
 import Observation
+import SwiftUI
 import SplitChecksCore
 
 /// Drives the one-bill flow: items → people → assign → tip & tax → summary.
@@ -7,8 +8,9 @@ import SplitChecksCore
 @Observable
 final class BillFlowModel {
 
-    /// Navigation path for the linear flow; clearing it pops to item entry.
-    var path: [BillStep] = []
+    /// Navigation path; type-erased so the flow steps and saved-bill detail
+    /// pushes can share one stack. Clearing it pops to item entry.
+    var path = NavigationPath()
 
     var items: [LineItem] = []
     var people: [Person] = []
@@ -126,7 +128,7 @@ final class BillFlowModel {
     }
 
     func startOver() {
-        path = []
+        path = NavigationPath()
         items = []
         people = []
         assignments = []
@@ -140,26 +142,22 @@ final class BillFlowModel {
         tipRule = .proportional
     }
 
-    // MARK: - Sharing
+    // MARK: - Snapshot & sharing
+
+    var snapshot: BillSnapshot {
+        BillSnapshot(
+            items: items,
+            people: people,
+            assignments: assignments,
+            taxCents: taxCents,
+            tipCents: tipCents,
+            taxRule: taxRule,
+            tipRule: tipRule
+        )
+    }
 
     /// Plain-text breakdown for the group chat.
     var summaryText: String {
-        let result = self.result
-        var lines: [String] = ["🧾 Split Checks"]
-        for share in result.shares {
-            guard let person = people.first(where: { $0.id == share.personID }) else { continue }
-            lines.append("")
-            lines.append("\(person.name): \(Money.format(share.totalCents))")
-            for item in items {
-                if let cents = result.itemBreakdown[item.id]?[person.id] {
-                    lines.append("  • \(item.name) \(Money.format(cents))")
-                }
-            }
-            if share.taxCents != 0 { lines.append("  • Tax \(Money.format(share.taxCents))") }
-            if share.tipCents != 0 { lines.append("  • Tip \(Money.format(share.tipCents))") }
-        }
-        lines.append("")
-        lines.append("Total \(Money.format(result.grandTotalCents))")
-        return lines.joined(separator: "\n")
+        snapshot.summaryText(merchantName: merchantName)
     }
 }

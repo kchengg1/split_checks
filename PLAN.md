@@ -106,12 +106,12 @@ Assignment  — lineItem →, person →, shareWeight (1 = full/even share)
 
 ## 6. Milestones
 
-| # | Milestone | Contents | Rough effort |
+| # | Milestone | Contents | Status |
 |---|---|---|---|
-| 1 | **Split math core** | Models, SplitEngine, full unit-test suite. Manual-entry UI only (no camera yet) — the app is already *usable* here | 1 week |
-| 2 | **Scan & parse** | VisionKit scanner, Vision OCR, ReceiptParser + fixture tests, Review-items screen | 1–2 weeks |
-| 3 | **Assign & summarize** | People, assignment UI, tip/tax screen, summary + share sheet | 1 week |
-| 4 | **Polish** | History (SwiftData persistence), haptics/animations, accessibility pass, empty states, app icon | 1 week |
+| 1 | **Split math core** | Models, SplitEngine, full unit-test suite. Manual-entry UI only (no camera yet) — the app is already *usable* here | ✅ Done |
+| 2 | **Scan & parse** | VisionKit scanner, Vision OCR, ReceiptParser + fixture tests, Review-items screen | ✅ Done |
+| 3 | **Assign & summarize** | People, assignment UI, tip/tax screen, summary + share sheet | ✅ Done |
+| 4 | **Polish** | History (SwiftData persistence), recent-diner suggestions, haptics, empty states, app icon | ✅ Done |
 | 5 | *(Optional later)* | iOS 26 Foundation-Models parsing, receipt-image attachment on shared summary, MultipeerConnectivity "pass the phone-less" mode, Venmo/deep-link handoff | — |
 
 Milestone 1 first is deliberate: the math engine is the riskiest correctness surface and needs zero UI to verify, and manual entry means the app degrades gracefully whenever OCR disappoints.

@@ -5,7 +5,9 @@ import SplitChecksCore
 /// exactly to the bill, and a share button for the group chat.
 struct SummaryView: View {
     @Environment(BillFlowModel.self) private var model
+    @Environment(\.modelContext) private var context
     @State private var expandedPersonIDs: Set<Person.ID> = []
+    @State private var saved = false
 
     var body: some View {
         let result = model.result
@@ -40,19 +42,29 @@ struct SummaryView: View {
                 }
             }
         }
+        .sensoryFeedback(.success, trigger: saved)
         .safeAreaInset(edge: .bottom) {
             Button {
-                // startOver clears the navigation path, popping to item entry.
-                model.startOver()
+                saveAndFinish()
             } label: {
-                Text("Start a new bill")
+                Text("Save & start a new bill")
                     .frame(maxWidth: .infinity)
             }
-            .buttonStyle(.bordered)
+            .buttonStyle(.borderedProminent)
             .controlSize(.large)
             .padding()
             .background(.bar)
         }
+    }
+
+    /// Saves the bill to history, then pops back to a fresh item-entry screen
+    /// (startOver clears the navigation path).
+    private func saveAndFinish() {
+        if let bill = try? SavedBill(snapshot: model.snapshot, merchantName: model.merchantName) {
+            context.insert(bill)
+        }
+        saved = true
+        model.startOver()
     }
 
     @ViewBuilder

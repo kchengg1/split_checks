@@ -2,7 +2,7 @@
 
 Split a dinner bill from a photo of the receipt — fully on-device, no cloud, no accounts. See [PLAN.md](PLAN.md) for the full project plan.
 
-**Status: Milestone 2** — receipt scanning is in: the VisionKit document camera (or a photo import) feeds on-device Vision OCR into `ReceiptParser`, which itemizes the receipt and pre-fills tax. Parsed items land in the same editable list as manual entry, with low-confidence lines flagged and the printed subtotal used as a checksum ("items add up ✓"). Next up (Milestone 3 in PLAN.md numbering is already built; Milestone 4): history persistence and polish.
+**Status: Milestones 1–4 complete.** The full loop from PLAN.md works: scan (VisionKit camera or photo import) → on-device OCR + parsing with low-confidence flags and a printed-subtotal checksum → people → assignment → tip & tax → exact per-person totals → share to the group chat → saved to local history (SwiftData). Names from past bills come back as one-tap suggestions. Remaining ideas live in PLAN.md's Milestone 5 (optional).
 
 ## Layout
 

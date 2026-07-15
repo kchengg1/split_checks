@@ -1,13 +1,34 @@
 import SwiftUI
+import SwiftData
 import SplitChecksCore
 
-/// Step 2: who's at the table.
+/// Step 2: who's at the table. Names from recent bills show up as
+/// one-tap suggestions.
 struct PeopleView: View {
     @Environment(BillFlowModel.self) private var model
+    @Query(sort: \SavedBill.date, order: .reverse) private var recentBills: [SavedBill]
     @State private var newName = ""
     @FocusState private var nameFocused: Bool
 
     private let columns = [GridItem(.adaptive(minimum: 120), spacing: 8)]
+
+    /// Frequent-diner suggestions: names from the last few bills that
+    /// aren't already on this one, most recent first.
+    private var suggestions: [String] {
+        let current = Set(model.people.map { $0.name.lowercased() })
+        var seen: Set<String> = []
+        var result: [String] = []
+        for bill in recentBills.prefix(10) {
+            for name in bill.peopleNames {
+                let key = name.lowercased()
+                if !current.contains(key), !seen.contains(key) {
+                    seen.insert(key)
+                    result.append(name)
+                }
+            }
+        }
+        return Array(result.prefix(6))
+    }
 
     var body: some View {
         ScrollView {
@@ -45,6 +66,29 @@ struct PeopleView: View {
                     }
                     .disabled(newName.trimmingCharacters(in: .whitespaces).isEmpty)
                     .accessibilityLabel("Add person")
+                }
+
+                if !suggestions.isEmpty {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("Recent")
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
+                        LazyVGrid(columns: columns, alignment: .leading, spacing: 8) {
+                            ForEach(suggestions, id: \.self) { name in
+                                Button {
+                                    model.addPerson(name: name)
+                                } label: {
+                                    Label(name, systemImage: "plus")
+                                        .font(.subheadline)
+                                        .lineLimit(1)
+                                        .padding(.horizontal, 10)
+                                        .padding(.vertical, 6)
+                                        .background(Capsule().strokeBorder(.secondary))
+                                }
+                                .buttonStyle(.plain)
+                            }
+                        }
+                    }
                 }
             }
             .padding()

@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftData
 import SplitChecksCore
 
 @main
@@ -9,6 +10,7 @@ struct SplitChecksApp: App {
         WindowGroup {
             RootView(model: model)
         }
+        .modelContainer(for: SavedBill.self)
     }
 }
 
@@ -23,10 +25,12 @@ struct RootView: View {
     }
 }
 
-/// The linear steps after item entry. Item entry is the stack root.
+/// The linear steps after item entry, plus history. Item entry is the
+/// stack root.
 enum BillStep: Hashable {
     case people
     case assign
     case tipTax
     case summary
+    case history
 }

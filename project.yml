@@ -21,6 +21,7 @@ targets:
       - package: SplitChecksCore
     settings:
       base:
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         GENERATE_INFOPLIST_FILE: YES
         INFOPLIST_KEY_NSCameraUsageDescription: "Split Checks uses the camera to scan receipts. Photos are processed on this device and never leave it."
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
