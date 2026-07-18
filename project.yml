@@ -23,6 +23,9 @@ targets:
       base:
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         GENERATE_INFOPLIST_FILE: YES
+        # Standard Apple frameworks only (HTTPS-level crypto) — exempt, so
+        # TestFlight skips the export-compliance question on every build.
+        INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
         INFOPLIST_KEY_NSCameraUsageDescription: "Split Checks uses the camera to scan receipts. Photos are processed on this device and never leave it."
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
         INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
