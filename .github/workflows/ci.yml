@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [main, "claude/**"]
+  pull_request:
+
+jobs:
+  core-tests:
+    name: SplitChecksCore tests
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run test suite
+        run: swift test --package-path SplitChecksCore
+
+  app-build:
+    name: App build (simulator)
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install XcodeGen
+        run: brew install xcodegen
+      - name: Generate Xcode project
+        run: xcodegen
+      - name: Build for iOS Simulator (no signing)
+        run: |
+          xcodebuild -project SplitChecks.xcodeproj -scheme SplitChecks \
+            -destination 'generic/platform=iOS Simulator' \
+            CODE_SIGNING_ALLOWED=NO build
