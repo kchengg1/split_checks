@@ -33,6 +33,23 @@ Then run the `SplitChecks` scheme on an iOS 17+ simulator or device.
 
 No XcodeGen? Create a new iOS App project in Xcode (SwiftUI, iOS 17 minimum), delete its template source, add the `App/` folder to the target, and add the local `SplitChecksCore` package via *File → Add Package Dependencies → Add Local*.
 
+## Installing on your iPhone without a Mac (sideloading)
+
+Every push builds an **unsigned IPA** on CI. To put it on your phone with a
+free Apple ID (no developer program):
+
+1. On GitHub, open **Actions → latest CI run → Artifacts** and download
+   `SplitChecks-ipa`. Unzip it to get `SplitChecks.ipa`.
+2. Install [Sideloadly](https://sideloadly.io) (Windows or macOS) or
+   [AltStore](https://altstore.io), connect your iPhone by USB, sign in with
+   your Apple ID, and feed it the IPA.
+3. On the phone: **Settings → General → VPN & Device Management** → trust
+   your certificate. Enable **Developer Mode** under Privacy & Security if
+   prompted (requires a restart).
+
+Free-Apple-ID caveats: the app expires after **7 days** (re-sideload or let
+AltStore auto-refresh), max 3 sideloaded apps at a time.
+
 ## How the math works
 
 All money is integer cents. Every division goes through one function —
