@@ -35,6 +35,22 @@ public struct ParsedReceipt: Sendable {
     public var tipCents: Int?
     public var totalCents: Int?
 
+    public init(
+        merchantName: String? = nil,
+        items: [LineItem] = [],
+        subtotalCents: Int? = nil,
+        taxCents: Int? = nil,
+        tipCents: Int? = nil,
+        totalCents: Int? = nil
+    ) {
+        self.merchantName = merchantName
+        self.items = items
+        self.subtotalCents = subtotalCents
+        self.taxCents = taxCents
+        self.tipCents = tipCents
+        self.totalCents = totalCents
+    }
+
     public var itemsSubtotalCents: Int { items.reduce(0) { $0 + $1.priceCents } }
     /// nil when the receipt printed no subtotal to check against.
     public var subtotalMatchesItems: Bool? { subtotalCents.map { $0 == itemsSubtotalCents } }
