@@ -33,22 +33,27 @@ Then run the `SplitChecks` scheme on an iOS 17+ simulator or device.
 
 No XcodeGen? Create a new iOS App project in Xcode (SwiftUI, iOS 17 minimum), delete its template source, add the `App/` folder to the target, and add the local `SplitChecksCore` package via *File → Add Package Dependencies → Add Local*.
 
-## Installing on your iPhone without a Mac (sideloading)
+## Releasing to TestFlight (no local Mac needed)
 
-Every push builds an **unsigned IPA** on CI. To put it on your phone with a
-free Apple ID (no developer program):
+The `Release to TestFlight` workflow archives, cloud-signs, and uploads the
+app to App Store Connect entirely on CI. One-time setup:
 
-1. On GitHub, open **Actions → latest CI run → Artifacts** and download
-   `SplitChecks-ipa`. Unzip it to get `SplitChecks.ipa`.
-2. Install [Sideloadly](https://sideloadly.io) (Windows or macOS) or
-   [AltStore](https://altstore.io), connect your iPhone by USB, sign in with
-   your Apple ID, and feed it the IPA.
-3. On the phone: **Settings → General → VPN & Device Management** → trust
-   your certificate. Enable **Developer Mode** under Privacy & Security if
-   prompted (requires a restart).
+1. **App Store Connect API key**: App Store Connect → Users and Access →
+   Integrations → App Store Connect API → generate a **Team key** with the
+   **App Manager** role. Note the Key ID and Issuer ID and download the `.p8`.
+2. **Repo secrets** (GitHub → Settings → Secrets and variables → Actions):
+   - `ASC_KEY_ID` — the key's ID
+   - `ASC_ISSUER_ID` — the issuer ID
+   - `ASC_PRIVATE_KEY` — full contents of the `.p8` file
+   - `APPLE_TEAM_ID` — your 10-character Team ID (developer.apple.com →
+     Membership)
+3. **App record**: App Store Connect → Apps → **+** → New App, with bundle ID
+   `com.kchengg1.splitchecks` (register the bundle ID at
+   developer.apple.com → Identifiers first if it isn't offered).
 
-Free-Apple-ID caveats: the app expires after **7 days** (re-sideload or let
-AltStore auto-refresh), max 3 sideloaded apps at a time.
+Then run the workflow from the Actions tab (or push a `v*` tag). The build
+appears in TestFlight after Apple's processing (~5–15 min); install it on
+your phone from the TestFlight app.
 
 ## How the math works
 
