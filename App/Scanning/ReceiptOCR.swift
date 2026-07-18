@@ -12,7 +12,8 @@ enum ReceiptOCR {
 
     /// Recognizes text in one receipt photo. Synchronous and CPU-bound —
     /// call it off the main actor (see `recognize(pages:)`).
-    static func recognize(in image: UIImage) throws -> [TextObservation] {
+    /// (Fully qualified return type: Vision also declares a `TextObservation`.)
+    static func recognize(in image: UIImage) throws -> [SplitChecksCore.TextObservation] {
         guard let cgImage = image.cgImage else { throw OCRError.notAnImage }
 
         let request = VNRecognizeTextRequest()
@@ -27,10 +28,10 @@ enum ReceiptOCR {
         )
         try handler.perform([request])
 
-        return (request.results ?? []).compactMap { observation in
+        return (request.results ?? []).compactMap { observation -> SplitChecksCore.TextObservation? in
             guard let candidate = observation.topCandidates(1).first else { return nil }
             let box = observation.boundingBox
-            return TextObservation(
+            return SplitChecksCore.TextObservation(
                 text: candidate.string,
                 confidence: Double(candidate.confidence),
                 x: box.origin.x,
