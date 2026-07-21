@@ -28,6 +28,7 @@ struct ItemsEntryView: View {
                 totalsSection
             }
         }
+        .scrollDismissesKeyboard(.interactively)
         .navigationTitle(model.merchantName ?? "New Bill")
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
@@ -138,6 +139,12 @@ struct ItemsEntryView: View {
             HStack {
                 TextField("Item name", text: $newName)
                     .focused($nameFocused)
+                    .submitLabel(.done)
+                    // Return on the name keyboard adds the item, same as the
+                    // + button. Keeps focus for quick back-to-back entry.
+                    .onSubmit {
+                        if canAddItem { addItem() }
+                    }
                 CurrencyField(title: "0.00", cents: $newPriceCents)
                     .frame(width: 90)
                     // Recreate the field after each add so its text clears.
@@ -148,7 +155,7 @@ struct ItemsEntryView: View {
                     Image(systemName: "plus.circle.fill")
                         .font(.title2)
                 }
-                .disabled(newPriceCents == 0 && newName.isEmpty)
+                .disabled(!canAddItem)
                 .accessibilityLabel("Add item")
             }
         } header: {
@@ -204,6 +211,10 @@ struct ItemsEntryView: View {
     }
 
     // MARK: - Actions
+
+    private var canAddItem: Bool {
+        !(newPriceCents == 0 && newName.trimmingCharacters(in: .whitespaces).isEmpty)
+    }
 
     private func addItem() {
         model.addItem(name: newName, priceCents: newPriceCents)

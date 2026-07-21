@@ -85,6 +85,17 @@ struct CurrencyField: View {
             .onChange(of: focused) {
                 if !focused { text = cents == 0 ? "" : displayString }
             }
+            // The decimal pad has no return key, so give it an explicit
+            // Done button to dismiss. Guarded by `focused` so only the
+            // active field contributes a keyboard toolbar.
+            .toolbar {
+                if focused {
+                    ToolbarItemGroup(placement: .keyboard) {
+                        Spacer()
+                        Button("Done") { focused = false }
+                    }
+                }
+            }
     }
 
     private var displayString: String {

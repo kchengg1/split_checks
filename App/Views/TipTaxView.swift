@@ -76,6 +76,7 @@ struct TipTaxView: View {
                 row("Total", model.subtotalCents + model.taxCents + model.tipCents, bold: true)
             }
         }
+        .scrollDismissesKeyboard(.interactively)
         .navigationTitle("Tip & tax")
         .safeAreaInset(edge: .bottom) {
             NavigationLink(value: BillStep.summary) {
