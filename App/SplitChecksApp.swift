@@ -10,18 +10,29 @@ struct SplitChecksApp: App {
         WindowGroup {
             RootView(model: model)
         }
-        .modelContainer(for: SavedBill.self)
+        .modelContainer(for: [SavedBill.self, SavedTrip.self])
     }
 }
 
+/// Two modes side by side: split a single receipt, or track a trip's shared
+/// expenses. Each is its own navigation stack so switching tabs preserves
+/// where you were.
 struct RootView: View {
     @Bindable var model: BillFlowModel
 
     var body: some View {
-        NavigationStack(path: $model.path) {
-            ItemsEntryView()
+        TabView {
+            NavigationStack(path: $model.path) {
+                ItemsEntryView()
+            }
+            .environment(model)
+            .tabItem { Label("Receipt", systemImage: "doc.viewfinder") }
+
+            NavigationStack {
+                TripsListView()
+            }
+            .tabItem { Label("Trips", systemImage: "airplane") }
         }
-        .environment(model)
     }
 }
 
