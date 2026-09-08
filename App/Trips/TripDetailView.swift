@@ -121,40 +121,58 @@ struct TripDetailView: View {
         return List {
             Section("Balances") {
                 if trip.expenses.isEmpty {
-                    Text("No expenses yet.").foregroundStyle(.secondary)
+                    Text("No expenses yet.").foregroundStyle(Color.secondary)
                 }
                 ForEach(settlement.balances) { balance in
-                    HStack {
-                        if let person = trip.people.first(where: { $0.id == balance.personID }) {
-                            PersonChip(person: person)
-                        }
-                        Spacer()
-                        Text(balanceLabel(balance.cents))
-                            .monospacedDigit()
-                            .foregroundStyle(balance.cents == 0 ? .secondary : (balance.cents > 0 ? .green : .red))
-                    }
+                    balanceRow(balance)
                 }
             }
 
             Section("Settle up") {
                 if settlement.transfers.isEmpty {
-                    Label(trip.expenses.isEmpty ? "Nothing to settle yet" : "All settled up 🎉",
-                          systemImage: trip.expenses.isEmpty ? "tray" : "checkmark.seal.fill")
-                        .foregroundStyle(trip.expenses.isEmpty ? .secondary : .green)
+                    settledUpLabel
                 } else {
-                    ForEach(Array(settlement.transfers.enumerated()), id: \.offset) { _, transfer in
-                        HStack {
-                            Text(name(transfer.fromID))
-                            Image(systemName: "arrow.right").font(.caption).foregroundStyle(.secondary)
-                            Text(name(transfer.toID))
-                            Spacer()
-                            Text(Money.format(transfer.cents, currencyCode: trip.currencyCode))
-                                .monospacedDigit().fontWeight(.medium)
-                        }
+                    ForEach(settlement.transfers.indices, id: \.self) { index in
+                        transferRow(settlement.transfers[index])
                     }
                 }
             }
         }
+    }
+
+    private func balanceRow(_ balance: Balance) -> some View {
+        HStack {
+            if let person = trip.people.first(where: { $0.id == balance.personID }) {
+                PersonChip(person: person)
+            }
+            Spacer()
+            Text(balanceLabel(balance.cents))
+                .monospacedDigit()
+                .foregroundStyle(balanceColor(balance.cents))
+        }
+    }
+
+    private func transferRow(_ transfer: Transfer) -> some View {
+        HStack {
+            Text(name(transfer.fromID))
+            Image(systemName: "arrow.right").font(.caption).foregroundStyle(Color.secondary)
+            Text(name(transfer.toID))
+            Spacer()
+            Text(Money.format(transfer.cents, currencyCode: trip.currencyCode))
+                .monospacedDigit().fontWeight(.medium)
+        }
+    }
+
+    private var settledUpLabel: some View {
+        let empty = trip.expenses.isEmpty
+        return Label(empty ? "Nothing to settle yet" : "All settled up 🎉",
+                     systemImage: empty ? "tray" : "checkmark.seal.fill")
+            .foregroundStyle(empty ? Color.secondary : Color.green)
+    }
+
+    private func balanceColor(_ cents: Int) -> Color {
+        if cents == 0 { return .secondary }
+        return cents > 0 ? .green : .red
     }
 
     private func balanceLabel(_ cents: Int) -> String {
