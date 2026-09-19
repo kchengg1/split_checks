@@ -1,6 +1,6 @@
 import SwiftUI
 import SwiftData
-import SplitChecksCore
+import SettledCore
 
 /// Everyone you share a group with, and where you stand with each of them
 /// across all groups.

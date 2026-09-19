@@ -1,7 +1,7 @@
 import Foundation
 import Observation
 import SwiftUI
-import SplitChecksCore
+import SettledCore
 
 /// Drives the one-bill flow: items → people → assign → tip & tax → summary.
 /// All math is delegated to `SplitEngine`; this type only holds editable state.

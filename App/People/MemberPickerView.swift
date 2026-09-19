@@ -1,6 +1,6 @@
 import SwiftUI
 import SwiftData
-import SplitChecksCore
+import SettledCore
 
 /// Add people to a group from the directory, or type a new name. Returns
 /// `Person` values whose IDs are the directory's, so the same friend is

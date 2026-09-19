@@ -1,5 +1,5 @@
 import XCTest
-@testable import SplitChecksCore
+@testable import SettledCore
 
 /// The group ledger: payments, soft delete/restore, the activity trail,
 /// pairwise vs. simplified settle-up, and decoding of every shipped

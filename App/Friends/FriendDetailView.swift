@@ -1,6 +1,6 @@
 import SwiftUI
 import SwiftData
-import SplitChecksCore
+import SettledCore
 
 /// One friend: the net per currency, which groups it comes from, and the
 /// ways to settle — record everything at once, hand off to a payment app,
@@ -158,7 +158,7 @@ struct FriendDetailView: View {
         return PaymentHandoff.options(for: person.handles,
                                       cents: single.map { -$0.value },
                                       currencyCode: single?.key ?? "USD",
-                                      note: "Split Checks settle up")
+                                      note: "Settle up")
     }
 
     private func remind(at date: Date, friend: FriendBalance) {
@@ -172,7 +172,7 @@ struct FriendDetailView: View {
                                               at: date)
             reminderResult = ok
                 ? "You'll be reminded on \(date.formatted(date: .abbreviated, time: .shortened))."
-                : "Notifications are off for Split Checks. Turn them on in Settings to get reminders."
+                : "Notifications are off for Settled. Turn them on in Settings to get reminders."
         }
     }
 

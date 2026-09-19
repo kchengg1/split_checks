@@ -1,4 +1,4 @@
-# Split Checks — Receipt-Based Bill Splitting App: Project Plan
+# Settled — Receipt-Based Bill Splitting App: Project Plan
 
 A friendly iOS app for splitting a dinner bill from a photo of the receipt. Snap the receipt, the app itemizes it, everyone gets assigned their items, and the app tells you who owes what — tax and tip included.
 
@@ -50,7 +50,7 @@ Scan → Review items → Add people → Assign → Tip & tax → Summary → Sh
 Single Xcode project, SwiftUI, MVVM-ish with plain observable models. No third-party dependencies required.
 
 ```
-SplitChecks/
+Settled/
 ├── App/                    # App entry, navigation (NavigationStack flow)
 ├── Models/                 # Bill, LineItem, Person, Assignment, Money (SwiftData @Model)
 ├── Scanning/
@@ -117,7 +117,7 @@ Assignment  — lineItem →, person →, shareWeight (1 = full/even share)
 | 7 | **Rich expenses** | Multiple payers, adjustment split, per-expense currency with per-currency balances, manual conversion, categories, notes, receipt photos, recurring expenses, validator, expense detail screen | ✅ Done |
 | 8 | **Receipt ↔ group bridge** | Scan a receipt from inside a group and land it as an itemized expense; add a finished or saved bill to a group with diner → member matching; itemized expenses show per-person items and can reopen the receipt to regenerate the split | ✅ Done |
 | 9 | **Friends, settle up, reports** | Friends tab with cross-group balances per currency, settle-everything in one tap, Venmo / PayPal / Cash App hand-offs, local reminders, CSV export, per-person PDF statements | ✅ Done |
-| 10 | **Share a group as a file** | Export a group as `.splitchecks`, open or import one, and merge two devices' copies without losing edits (later edit wins, deletions stick) | ✅ Done |
+| 10 | **Share a group as a file** | Export a group as `.settled`, open or import one, and merge two devices' copies without losing edits (later edit wins, deletions stick) | ✅ Done |
 | 11 | **iCloud shared groups** | Share a group live through the user's own iCloud (CloudKit `CKShare`); participants edit the same ledger and changes reconcile with the Milestone 10 merge | ✅ Done |
 | 12 | *(Optional later)* | Foundation-Models receipt parsing, widgets, App Intents, iPad layout, localization | — |
 

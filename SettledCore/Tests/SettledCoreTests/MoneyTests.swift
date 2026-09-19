@@ -1,5 +1,5 @@
 import XCTest
-@testable import SplitChecksCore
+@testable import SettledCore
 
 final class MoneyTests: XCTestCase {
 

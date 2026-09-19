@@ -1,5 +1,5 @@
 import XCTest
-@testable import SplitChecksCore
+@testable import SettledCore
 
 /// Trip balance and settle-up tests. Expected values are cross-checked
 /// against an independent reference implementation of the same algorithm.

@@ -1,7 +1,7 @@
 import SwiftUI
 import SwiftData
 import UniformTypeIdentifiers
-import SplitChecksCore
+import SettledCore
 
 /// The Groups tab home: a hero card with your overall position when the
 /// app knows who you are, then every group by last activity.
@@ -60,7 +60,7 @@ struct GroupsListView: View {
                 }
             }
         }
-        .fileImporter(isPresented: $showingImporter, allowedContentTypes: [.splitChecksGroup, .json]) { result in
+        .fileImporter(isPresented: $showingImporter, allowedContentTypes: [.settledGroup, .json]) { result in
             guard case .success(let url) = result, let document = GroupSharing.read(from: url) else {
                 importFailed = true
                 return
@@ -73,7 +73,7 @@ struct GroupsListView: View {
         .alert("Couldn't read that file", isPresented: $importFailed) {
             Button("OK", role: .cancel) {}
         } message: {
-            Text("It isn't a Split Checks group file, or it's from a newer version of the app.")
+            Text("It isn't a Settled group file, or it's from a newer version of the app.")
         }
         .navigationDestination(for: UUID.self) { id in
             if let saved = groups.first(where: { $0.id == id }) {

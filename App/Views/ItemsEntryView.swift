@@ -1,6 +1,6 @@
 import SwiftUI
 import PhotosUI
-import SplitChecksCore
+import SettledCore
 
 /// Step 1: build the item list — by scanning a receipt, importing a photo,
 /// or typing items in. Scanned items land here as an editable draft:

@@ -1,6 +1,6 @@
 import SwiftUI
 import PhotosUI
-import SplitChecksCore
+import SettledCore
 
 /// Add or edit a group expense: what, how much and in which currency, who
 /// paid (one or several), how it's split, plus category, notes, a receipt

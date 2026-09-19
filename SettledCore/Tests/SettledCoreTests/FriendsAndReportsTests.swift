@@ -1,5 +1,5 @@
 import XCTest
-@testable import SplitChecksCore
+@testable import SettledCore
 
 /// Milestone 9: cross-group friend balances, settle-all payments, CSV
 /// export, and per-person statements.

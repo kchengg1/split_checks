@@ -1,5 +1,5 @@
 import SwiftUI
-import SplitChecksCore
+import SettledCore
 
 /// A printable reimbursement statement: what one person paid and owed in a
 /// group, line by line, with totals per currency.
@@ -14,7 +14,7 @@ struct StatementView: View {
                 Text("\(statement.personName) · \(statement.groupName)")
                     .font(.system(size: 14))
                     .foregroundStyle(.secondary)
-                Text("Generated \(Date.now.formatted(date: .long, time: .omitted)) by Split Checks")
+                Text("Generated \(Date.now.formatted(date: .long, time: .omitted)) by Settled")
                     .font(.system(size: 10))
                     .foregroundStyle(.secondary)
             }

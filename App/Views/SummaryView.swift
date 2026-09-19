@@ -1,5 +1,5 @@
 import SwiftUI
-import SplitChecksCore
+import SettledCore
 
 /// Step 5: the payoff. One expandable card per person, totals that sum
 /// exactly to the bill, and a share button for the group chat.

@@ -1,5 +1,5 @@
 import SwiftUI
-import SplitChecksCore
+import SettledCore
 
 /// Step 3: "paint" items with people. Select a person chip, then tap items
 /// to toggle them for that person. Items tapped by several people are shared.

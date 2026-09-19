@@ -1,5 +1,5 @@
 import XCTest
-@testable import SplitChecksCore
+@testable import SettledCore
 
 /// Milestone 7: multiple payers, adjustment splits, per-currency balances,
 /// manual conversion, validation, recurring expenses, and decoding of the

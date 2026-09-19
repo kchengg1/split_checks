@@ -40,10 +40,10 @@ jobs:
           ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         run: |
-          xcodebuild -project SplitChecks.xcodeproj -scheme SplitChecks \
+          xcodebuild -project Settled.xcodeproj -scheme Settled \
             -destination 'generic/platform=iOS' \
             -configuration Release \
-            -archivePath build/SplitChecks.xcarchive \
+            -archivePath build/Settled.xcarchive \
             archive \
             -allowProvisioningUpdates \
             -authenticationKeyPath "$PWD/private_keys/AuthKey.p8" \
@@ -78,7 +78,7 @@ jobs:
           ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
         run: |
           xcodebuild -exportArchive \
-            -archivePath build/SplitChecks.xcarchive \
+            -archivePath build/Settled.xcarchive \
             -exportOptionsPlist ExportOptions.plist \
             -exportPath build/export \
             -allowProvisioningUpdates \

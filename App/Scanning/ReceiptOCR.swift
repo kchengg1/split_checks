@@ -1,6 +1,6 @@
 import UIKit
 import Vision
-import SplitChecksCore
+import SettledCore
 
 /// On-device text recognition. Wraps Vision's `VNRecognizeTextRequest` and
 /// maps its observations into the parser's platform-neutral `TextObservation`.
@@ -13,7 +13,7 @@ enum ReceiptOCR {
     /// Recognizes text in one receipt photo. Synchronous and CPU-bound —
     /// call it off the main actor (see `recognize(pages:)`).
     /// (Fully qualified return type: Vision also declares a `TextObservation`.)
-    static func recognize(in image: UIImage) throws -> [SplitChecksCore.TextObservation] {
+    static func recognize(in image: UIImage) throws -> [SettledCore.TextObservation] {
         guard let cgImage = image.cgImage else { throw OCRError.notAnImage }
 
         let request = VNRecognizeTextRequest()
@@ -28,10 +28,10 @@ enum ReceiptOCR {
         )
         try handler.perform([request])
 
-        return (request.results ?? []).compactMap { observation -> SplitChecksCore.TextObservation? in
+        return (request.results ?? []).compactMap { observation -> SettledCore.TextObservation? in
             guard let candidate = observation.topCandidates(1).first else { return nil }
             let box = observation.boundingBox
-            return SplitChecksCore.TextObservation(
+            return SettledCore.TextObservation(
                 text: candidate.string,
                 confidence: Double(candidate.confidence),
                 x: box.origin.x,

@@ -1,5 +1,5 @@
 import Foundation
-import SplitChecksCore
+import SettledCore
 
 /// The person using this phone. Optional: without it every screen falls
 /// back to neutral wording ("Alex owes Sam"); with it, "you owe Sam".

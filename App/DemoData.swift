@@ -1,6 +1,6 @@
 import Foundation
 import SwiftData
-import SplitChecksCore
+import SettledCore
 
 /// Sample data used only for App Store screenshots. Activated by the
 /// `UITEST_SCREENSHOTS` launch argument, which routes the app to an in-memory

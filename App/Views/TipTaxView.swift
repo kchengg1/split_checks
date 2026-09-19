@@ -1,5 +1,5 @@
 import SwiftUI
-import SplitChecksCore
+import SettledCore
 
 /// Step 4: tax from the receipt, tip by quick buttons or custom amount,
 /// and how each should be divided.

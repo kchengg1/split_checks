@@ -1,6 +1,6 @@
 import SwiftUI
 import SwiftData
-import SplitChecksCore
+import SettledCore
 
 /// The Activity tab: every group's trail, newest first, grouped by day.
 /// Deleted entries can be restored from here.

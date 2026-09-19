@@ -1,5 +1,5 @@
 import SwiftUI
-import SplitChecksCore
+import SettledCore
 
 /// Read-only view of a saved bill: the same per-person breakdown as the
 /// live summary, recomputed from the stored snapshot.

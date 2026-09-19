@@ -1,5 +1,5 @@
 import XCTest
-@testable import SplitChecksCore
+@testable import SettledCore
 
 /// Milestone 10: merging two devices' copies of a group.
 final class MergeTests: XCTestCase {
@@ -150,7 +150,7 @@ final class MergeTests: XCTestCase {
         var group = base()
         group.apply(.addEntry(.payment(Payment(fromID: ben.id, toID: ana.id, cents: 2500, date: t0, createdAt: t0))), at: t0)
         let document = GroupDocument(group: group, exportedBy: "Ana", exportedAt: t0)
-        XCTAssertEqual(document.suggestedFileName, "Trip.splitchecks")
+        XCTAssertEqual(document.suggestedFileName, "Trip.settled")
 
         let decoded = try GroupDocument.decode(document.encoded())
         XCTAssertEqual(decoded.formatVersion, GroupDocument.currentFormatVersion)
@@ -162,7 +162,7 @@ final class MergeTests: XCTestCase {
         // A name that can't be a filename still produces one.
         var awkward = base()
         awkward.name = "Trip: 50/50?"
-        XCTAssertEqual(GroupDocument(group: awkward).suggestedFileName, "Trip 5050.splitchecks")
+        XCTAssertEqual(GroupDocument(group: awkward).suggestedFileName, "Trip 5050.settled")
     }
 
     func testMergingConcurrentPaymentsKeepsBothAndBalancesStayExact() {

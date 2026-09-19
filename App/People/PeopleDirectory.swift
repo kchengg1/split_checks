@@ -1,6 +1,6 @@
 import Foundation
 import SwiftData
-import SplitChecksCore
+import SettledCore
 
 /// Lookups and maintenance for the people directory. Small enough to be
 /// plain functions over a `ModelContext`.

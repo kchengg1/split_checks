@@ -1,5 +1,5 @@
 import XCTest
-@testable import SplitChecksCore
+@testable import SettledCore
 
 /// Milestone 8: a scanned bill becomes a group expense.
 final class ItemizedExpenseTests: XCTestCase {

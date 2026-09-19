@@ -1,5 +1,5 @@
 import XCTest
-@testable import SplitChecksCore
+@testable import SettledCore
 
 /// Tests for the largest-remainder apportionment that underpins every split.
 /// Expected values are cross-checked against an independent reference

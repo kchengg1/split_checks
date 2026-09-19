@@ -1,6 +1,6 @@
 import Foundation
 import SwiftData
-import SplitChecksCore
+import SettledCore
 
 /// The people directory: one row per person, reused across bills and
 /// groups so the same friend keeps one identity everywhere. Groups still

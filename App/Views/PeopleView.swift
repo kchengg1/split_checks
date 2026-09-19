@@ -1,6 +1,6 @@
 import SwiftUI
 import SwiftData
-import SplitChecksCore
+import SettledCore
 
 /// Step 2: who's at the table. People come from the directory, so a name
 /// typed here is the same person as in any group; recent people show up

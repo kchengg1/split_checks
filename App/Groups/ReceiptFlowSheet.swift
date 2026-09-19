@@ -1,5 +1,5 @@
 import SwiftUI
-import SplitChecksCore
+import SettledCore
 
 /// The receipt flow (scan → items → people → assign → tip & tax → summary)
 /// presented from a group. The model carries the group target, so the

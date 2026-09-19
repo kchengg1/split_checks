@@ -1,6 +1,6 @@
 import SwiftUI
 import UIKit
-import SplitChecksCore
+import SettledCore
 
 /// The app's visual system: one accent, two balance colors, rounded
 /// numerals, and a handful of reusable pieces so every screen reads the

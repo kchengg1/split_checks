@@ -1,6 +1,6 @@
 import SwiftUI
 import SwiftData
-import SplitChecksCore
+import SettledCore
 
 /// First-launch (and Settings) sheet: "What's your name?" Creates or picks
 /// the directory person that is *me*, so balances can say "you owe".

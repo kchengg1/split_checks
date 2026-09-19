@@ -1,6 +1,6 @@
 import SwiftUI
 import UIKit
-import SplitChecksCore
+import SettledCore
 
 /// Chip colors, indexed by `Person.colorIndex` (wraps around for big parties).
 enum ChipPalette {

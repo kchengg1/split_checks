@@ -1,5 +1,5 @@
 import Foundation
-import SplitChecksCore
+import SettledCore
 
 /// Deep links into payment apps for settling up. We never move money: the
 /// link opens the other app prefilled, and the user records the payment

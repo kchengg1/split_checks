@@ -1,6 +1,6 @@
 import SwiftUI
 import SwiftData
-import SplitChecksCore
+import SettledCore
 
 /// What arrives when someone sends you a group file: either a group you
 /// already have (merge it) or a new one (add it). Shows what will change

@@ -9,7 +9,7 @@ import CloudKit
 /// replacing it via `UISceneConfiguration.delegateClass` leaves the app with
 /// no window at all.
 final class AppDelegate: NSObject, UIApplicationDelegate {
-    static let didReceiveShare = Notification.Name("SplitChecks.didReceiveCloudShare")
+    static let didReceiveShare = Notification.Name("Settled.didReceiveCloudShare")
 
     func application(_ application: UIApplication,
                      userDidAcceptCloudKitShareWith cloudKitShareMetadata: CKShare.Metadata) {

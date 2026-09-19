@@ -1,6 +1,6 @@
 import SwiftUI
 import SwiftData
-import SplitChecksCore
+import SettledCore
 
 /// Turns a finished bill into an itemized expense in a group: pick the
 /// group, match each diner to a member (or add them), say who paid.

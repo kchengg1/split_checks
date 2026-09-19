@@ -1,6 +1,6 @@
 import Foundation
 import SwiftData
-import SplitChecksCore
+import SettledCore
 
 /// A group in local storage. The full `ExpenseGroup` document lives encoded
 /// in `payload`; display fields are denormalized for cheap list rendering.

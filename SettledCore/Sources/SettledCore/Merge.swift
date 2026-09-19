@@ -154,7 +154,7 @@ extension ExpenseGroup {
 }
 
 /// A group written to a file: the format version plus the group itself.
-/// Exported as `.splitchecks`, imported and merged on another phone.
+/// Exported as `.settled`, imported and merged on another phone.
 public struct GroupDocument: Identifiable, Codable, Sendable {
     /// Bumped if the envelope (not the group) ever changes shape.
     public static let currentFormatVersion = 1
@@ -188,6 +188,6 @@ public struct GroupDocument: Identifiable, Codable, Sendable {
     public var suggestedFileName: String {
         let cleaned = group.name.components(separatedBy: CharacterSet(charactersIn: "/\\:?%*|\"<>")).joined()
         let trimmed = cleaned.trimmingCharacters(in: .whitespaces)
-        return (trimmed.isEmpty ? "Group" : trimmed) + ".splitchecks"
+        return (trimmed.isEmpty ? "Group" : trimmed) + ".settled"
     }
 }

@@ -1,6 +1,6 @@
 import Foundation
 import SwiftData
-import SplitChecksCore
+import SettledCore
 
 /// Moves shared groups between iCloud and the local store. All of the
 /// reconciling is `ExpenseGroup.merged(with:)`, so this only decides what

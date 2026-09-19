@@ -1,6 +1,6 @@
 import SwiftUI
 import SwiftData
-import SplitChecksCore
+import SettledCore
 
 /// Past bills, newest first. Tap for the full read-only split.
 struct HistoryView: View {

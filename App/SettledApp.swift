@@ -1,10 +1,10 @@
 import SwiftUI
 import SwiftData
 import CloudKit
-import SplitChecksCore
+import SettledCore
 
 @main
-struct SplitChecksApp: App {
+struct SettledApp: App {
     // An app delegate, purely so an accepted iCloud share invitation
     // reaches the app.
     @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
@@ -104,7 +104,7 @@ struct RootView: View {
         .sheet(isPresented: $showingOnboarding, onDismiss: { onboarded = true }) {
             MeOnboardingView()
         }
-        // A `.splitchecks` file tapped in Messages, Files, or AirDrop.
+        // A `.settled` file tapped in Messages, Files, or AirDrop.
         .onOpenURL { url in
             if let document = GroupSharing.read(from: url) {
                 incoming = document
@@ -118,7 +118,7 @@ struct RootView: View {
         .alert("Couldn't open that file", isPresented: $openFailed) {
             Button("OK", role: .cancel) {}
         } message: {
-            Text("It isn't a Split Checks group file, or it's from a newer version of the app.")
+            Text("It isn't a Settled group file, or it's from a newer version of the app.")
         }
     }
 }

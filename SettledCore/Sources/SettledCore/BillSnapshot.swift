@@ -51,7 +51,7 @@ public struct BillSnapshot: Hashable, Codable, Sendable {
     /// the live flow and saved-bill history.
     public func summaryText(merchantName: String? = nil) -> String {
         let result = self.result
-        var lines: [String] = ["🧾 \(merchantName ?? "Split Checks")"]
+        var lines: [String] = ["🧾 \(merchantName ?? "Settled")"]
         for share in result.shares {
             guard let person = people.first(where: { $0.id == share.personID }) else { continue }
             lines.append("")

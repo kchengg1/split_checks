@@ -1,6 +1,6 @@
 import Foundation
 import SwiftData
-import SplitChecksCore
+import SettledCore
 
 /// A finished bill in local history. Display fields are denormalized for
 /// cheap list rendering and people suggestions; the full bill lives in

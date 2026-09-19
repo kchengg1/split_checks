@@ -1,7 +1,7 @@
 import Foundation
 import CloudKit
 import Observation
-import SplitChecksCore
+import SettledCore
 
 /// Live sharing through the user's own iCloud — no server of ours and no
 /// account of ours. Each shared group is one record in a custom zone;
@@ -29,12 +29,12 @@ final class CloudSyncEngine {
         }
     }
 
-    static let containerIdentifier = "iCloud.com.kchengg1.splitchecks"
+    static let containerIdentifier = "iCloud.com.kchengg1.settled"
     static let recordType = "SharedGroup"
     static let payloadKey = "payload"
     static let nameKey = "name"
     /// Our own zone in the private database. Sharing needs a custom zone.
-    static let zoneName = "SplitChecksGroups"
+    static let zoneName = "SettledGroups"
 
     private(set) var status: Status = .unknown
 

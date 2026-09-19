@@ -53,9 +53,9 @@ jobs:
       - name: Run screenshot UI test
         run: |
           xcodebuild test \
-            -project SplitChecks.xcodeproj -scheme SplitChecks \
+            -project Settled.xcodeproj -scheme Settled \
             -destination "platform=iOS Simulator,name=${{ steps.sim.outputs.name }}" \
-            -only-testing:SplitChecksUITests \
+            -only-testing:SettledUITests \
             -resultBundlePath result.xcresult \
             CODE_SIGNING_ALLOWED=NO
 

@@ -1,5 +1,5 @@
 import XCTest
-@testable import SplitChecksCore
+@testable import SettledCore
 
 /// Fixture receipts for the parser. Expected values are cross-checked
 /// against an independent reference implementation of the same heuristics.

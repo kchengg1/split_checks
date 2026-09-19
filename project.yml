@@ -1,6 +1,6 @@
-# XcodeGen spec — run `xcodegen` in the repo root to produce SplitChecks.xcodeproj.
+# XcodeGen spec — run `xcodegen` in the repo root to produce Settled.xcodeproj.
 # Install XcodeGen with `brew install xcodegen`.
-name: SplitChecks
+name: Settled
 options:
   bundleIdPrefix: com.kchengg1
   deploymentTarget:
@@ -8,87 +8,87 @@ options:
   xcodeVersion: "15.0"
 
 packages:
-  SplitChecksCore:
-    path: SplitChecksCore
+  SettledCore:
+    path: SettledCore
 
 targets:
-  SplitChecks:
+  Settled:
     type: application
     platform: iOS
     sources:
       - App
     dependencies:
-      - package: SplitChecksCore
+      - package: SettledCore
     # An explicit Info.plist (rather than the generated one) because the
     # shared-group file type needs nested declarations that the
     # INFOPLIST_KEY_* build settings can't express.
     info:
-      path: SplitChecks-Info.plist
+      path: Settled-Info.plist
       properties:
         # Standard Apple frameworks only (HTTPS-level crypto) — exempt, so
         # TestFlight skips the export-compliance question on every build.
         ITSAppUsesNonExemptEncryption: false
-        NSCameraUsageDescription: "Split Checks uses the camera to scan receipts. Photos are processed on this device and never leave it."
+        NSCameraUsageDescription: "Settled uses the camera to scan receipts. Photos are processed on this device and never leave it."
         UILaunchScreen: {}
         UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
         # Groups shared as files: we own the type, so we export it and
         # register as its editor.
         UTExportedTypeDeclarations:
-          - UTTypeIdentifier: com.kchengg1.splitchecks.group
-            UTTypeDescription: Split Checks Group
+          - UTTypeIdentifier: com.kchengg1.settled.group
+            UTTypeDescription: Settled Group
             UTTypeConformsTo: [public.json]
             UTTypeTagSpecification:
-              public.filename-extension: [splitchecks]
+              public.filename-extension: [settled]
         CFBundleDocumentTypes:
-          - CFBundleTypeName: Split Checks Group
+          - CFBundleTypeName: Settled Group
             CFBundleTypeRole: Editor
             LSHandlerRank: Owner
-            LSItemContentTypes: [com.kchengg1.splitchecks.group]
+            LSItemContentTypes: [com.kchengg1.settled.group]
         # Required to accept an invitation to a group shared through iCloud.
         CKSharingSupported: true
     # Live group sharing runs on the user's own iCloud. The container must
     # exist in the Apple developer account before a signed build (see README).
     entitlements:
-      path: SplitChecks.entitlements
+      path: Settled.entitlements
       properties:
-        com.apple.developer.icloud-container-identifiers: [iCloud.com.kchengg1.splitchecks]
+        com.apple.developer.icloud-container-identifiers: [iCloud.com.kchengg1.settled]
         com.apple.developer.icloud-services: [CloudKit]
     settings:
       base:
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         GENERATE_INFOPLIST_FILE: NO
-        PRODUCT_BUNDLE_IDENTIFIER: com.kchengg1.splitchecks
+        PRODUCT_BUNDLE_IDENTIFIER: com.kchengg1.settled
         SWIFT_VERSION: "5.9"
         TARGETED_DEVICE_FAMILY: "1"
         CURRENT_PROJECT_VERSION: 1
         MARKETING_VERSION: 0.1.0
 
-  SplitChecksUITests:
+  SettledUITests:
     type: bundle.ui-testing
     platform: iOS
     sources:
-      - SplitChecksUITests
+      - SettledUITests
     dependencies:
-      - target: SplitChecks
+      - target: Settled
     settings:
       base:
         GENERATE_INFOPLIST_FILE: YES
-        PRODUCT_BUNDLE_IDENTIFIER: com.kchengg1.splitchecks.uitests
-        TEST_TARGET_NAME: SplitChecks
+        PRODUCT_BUNDLE_IDENTIFIER: com.kchengg1.settled.uitests
+        TEST_TARGET_NAME: Settled
         SWIFT_VERSION: "5.9"
 
 # Explicit scheme so the UI-test target is available to `xcodebuild test`
 # (screenshots) while the plain app build/archive is unchanged — the test
 # target only participates in the test action.
 schemes:
-  SplitChecks:
+  Settled:
     build:
       targets:
-        SplitChecks: all
-        SplitChecksUITests: [test]
+        Settled: all
+        SettledUITests: [test]
     test:
       targets:
-        - SplitChecksUITests
+        - SettledUITests
     run:
       config: Debug
     archive:

@@ -1,5 +1,5 @@
 import SwiftUI
-import SplitChecksCore
+import SettledCore
 
 /// Record that someone paid someone back — in full or in part, by any
 /// method. The app never moves money; recording means "the user said so".

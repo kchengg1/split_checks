@@ -1,5 +1,5 @@
 import SwiftUI
-import SplitChecksCore
+import SettledCore
 
 /// Everything about one expense: who paid, who owes what, notes, the
 /// receipt photo, and repeats. Edits and deletes go through the group

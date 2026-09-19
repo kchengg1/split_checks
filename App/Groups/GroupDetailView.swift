@@ -1,7 +1,7 @@
 import SwiftUI
 import SwiftData
 import CloudKit
-import SplitChecksCore
+import SettledCore
 
 /// One group: its ledger of expenses and payments, balances with settle-up,
 /// the activity trail, and members. Every edit goes through
@@ -254,7 +254,7 @@ struct GroupDetailView: View {
         }
     }
 
-    /// Writes the whole group to a `.splitchecks` file for AirDrop or
+    /// Writes the whole group to a `.settled` file for AirDrop or
     /// Messages. Whoever opens it merges it into their own copy.
     private func shareGroupFile() {
         let myName = meID.flatMap { group.person(withID: $0)?.name }
